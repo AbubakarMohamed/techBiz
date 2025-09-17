@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Block access to build artifacts and internal files
+Disallow: /_next/
+Disallow: /api/
+Disallow: /.well-known/
+
+# Allow specific public assets
+Allow: /favicon.ico
+Allow: /sitemap.xml
+
+Sitemap: https://techbiz.co.ke/sitemap.xml

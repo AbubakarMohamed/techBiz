@@ -1,0 +1,91 @@
+Folder PATH listing
+Volume serial number is 605C-C7D9
+C:.
+¦   directoryTXT
+¦   
++---app
+¦   ¦   ClientLayout.jsx
+¦   ¦   favicon.ico
+¦   ¦   head.js
+¦   ¦   layout.js
+¦   ¦   loading.js
+¦   ¦   page.js
+¦   ¦   Providers.jsx
+¦   ¦   sitemap.js
+¦   ¦   
+¦   +---about
+¦   ¦       layout.js
+¦   ¦       page.jsx
+¦   ¦       
+¦   +---contact
+¦           layout.js
+¦           page.jsx
+¦           
++---components
+¦   ¦   BackToTopButton.jsx
+¦   ¦   ErrorBoundary.jsx
+¦   ¦   Footer.jsx
+¦   ¦   nav-bar.jsx
+¦   ¦   PWAInstaller.jsx
+¦   ¦   ScrollToHash.jsx
+¦   ¦   
+¦   +---about
+¦   ¦       JourneyFeature.jsx
+¦   ¦       MissionVisionValues.jsx
+¦   ¦       WhyChooseUS.jsx
+¦   ¦       
+¦   +---contact
+¦   ¦       contactMethod.jsx
+¦   ¦       OfficeMap.jsx
+¦   ¦       
+¦   +---home
+¦   ¦   ¦   AnimatedScrollIndicator.jsx
+¦   ¦   ¦   BelowFoldClient.jsx
+¦   ¦   ¦   ConversionBlock.jsx
+¦   ¦   ¦   FeatureSection.jsx
+¦   ¦   ¦   Industries.jsx
+¦   ¦   ¦   LogoMarquee.jsx
+¦   ¦   ¦   ProductShowcase.jsx
+¦   ¦   ¦   ServiceSection-vERP.jsx
+¦   ¦   ¦   SneakPeakSection.jsx
+¦   ¦   ¦   TestimonialsSection.jsx
+¦   ¦   ¦   
+¦   ¦   +---hero
+¦   ¦           HeroClient.jsx
+¦   ¦           HeroClientWrapper.jsx
+¦   ¦           HeroSection.jsx
+¦   ¦           SimplifiedCertificates.jsx
+¦   ¦           ? ?? Critical Performance Issues Causing.md
+¦   ¦           
+¦   +---ui
+¦           button.jsx
+¦           CalendlyModal.jsx
+¦           CarouselNavigation.jsx
+¦           PerformanceMetrics.jsx
+¦           ScrollTohashWrapper.jsx
+¦           Section.jsx
+¦           SectionHeader.jsx
+¦           SkeletonLoader.jsx
+¦           VideoSkeletonLoader.jsx
+¦           
++---data
+¦       featureAnimations.js
+¦       features.js
+¦       industries.js
+¦       journey.js
+¦       products.js
+¦       services.js
+¦       
++---lib
+¦       heroContext.js
+¦       utils.js
+¦       
++---styles
+        critical.css
+        critical.min.css
+        globals.css
+        globals.min.css
+        performance.css
+        performance.min.css
+        theme.js
+        
