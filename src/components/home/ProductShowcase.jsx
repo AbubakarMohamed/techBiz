@@ -2,32 +2,10 @@
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { motion, useReducedMotion, useSpring, useTransform } from "framer-motion"
+import { motion } from "framer-motion"
 import { ArrowRight, Package } from "lucide-react"
 import Section from '@/components/ui/Section'
 import SectionHeader from '@/components/ui/SectionHeader'
-
-// Enhanced Animation Constants for Subtle Professional Feel
-const EASING = {
-  // Smooth, natural easing curves for professional feel
-  smooth: [0.16, 1, 0.3, 1], // Enhanced easeOutExpo for smooth exits
-  gentle: [0.25, 0.46, 0.45, 0.94], // Smooth easeOutQuart
-  bounce: [0.34, 1.56, 0.64, 1], // Subtle bounce without overdoing it
-  elastic: [0.175, 0.885, 0.32, 1.275], // Very subtle elastic
-}
-
-const TIMING = {
-  quick: 0.2,
-  normal: 0.4,
-  smooth: 0.6,
-  layout: 0.5,
-}
-
-const STAGGER = {
-  cards: 0.08, // Refined stagger timing for cards
-  content: 0.05, // Subtle content stagger
-  micro: 0.02, // Micro-delays for polish
-}
 
 const products = [
   {
@@ -66,64 +44,21 @@ const products = [
 ]
 
 const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
-  const shouldReduceMotion = useReducedMotion()
-
-  // Enhanced animation variants for better control
-  const cardVariants = {
-    hidden: {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : 40,
-      scale: shouldReduceMotion ? 1 : 0.95,
-      rotateY: shouldReduceMotion ? 0 : (isMobile ? 0 : 3)
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      rotateY: 0,
-      transition: {
-        duration: shouldReduceMotion ? 0 : TIMING.smooth,
-        delay: shouldReduceMotion ? 0 : index * STAGGER.cards,
-        ease: EASING.smooth,
-        staggerChildren: shouldReduceMotion ? 0 : STAGGER.content,
-        delayChildren: shouldReduceMotion ? 0 : STAGGER.micro
-      }
-    }
-  }
-
-  const contentVariants = {
-    hidden: {
-      opacity: 0,
-      y: shouldReduceMotion ? 0 : 12,
-      filter: shouldReduceMotion ? 'blur(0px)' : 'blur(0.5px)'
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
-      transition: {
-        duration: shouldReduceMotion ? 0 : TIMING.normal,
-        ease: EASING.smooth
-      }
-    }
-  }
-
   // For mobile, we'll use a simplified layout without active states
   if (isMobile) {
     return (
       <motion.div
         className="relative rounded-3xl overflow-hidden group h-auto min-h-[500px] w-full"
-        style={{ willChange: shouldReduceMotion ? 'auto' : 'transform, opacity' }}
-        variants={cardVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px", amount: 0.1 }}
-        whileHover={shouldReduceMotion ? {} : {
-          y: -2,
-          scale: 1.002,
-          transition: { duration: TIMING.quick, ease: EASING.gentle }
+        style={{ willChange: 'transform, opacity' }}
+        initial={{ opacity: 0, y: 40, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ 
+          duration: 0.6,
+          delay: index * 0.06,
+          ease: [0.25, 0.46, 0.45, 0.94]
         }}
-        whileTap={shouldReduceMotion ? {} : { scale: 0.998 }}
       >
         {/* Enhanced Background with Texture */}
         <div className={`absolute inset-0 bg-gradient-to-b ${product.gradient}`} />
@@ -143,14 +78,12 @@ const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
         {/* Content Container - Column layout for mobile */}
         <div className="relative h-full flex flex-col">
           {/* Image at TOP for mobile - landscape style */}
-          <div className="relative w-full h-48 flex-shrink-0 overflow-hidden rounded-t-3xl">
-            <motion.div
-              variants={contentVariants}
+          <div className="relative w-full h-48 flex-shrink-0">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.1, ease: "easeOut" }}
               className="relative w-full h-full"
-              whileHover={shouldReduceMotion ? {} : {
-                scale: 1.05,
-                transition: { duration: TIMING.smooth, ease: EASING.gentle }
-              }}
             >
               <Image
                 src={product.mobileImage}
@@ -166,71 +99,73 @@ const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
           {/* Content Area */}
           <div className="relative z-10 p-6 flex-1 flex flex-col">
             {/* Title and Description */}
-            <motion.div
-              className="flex-1"
-              variants={contentVariants}
-            >
-              <motion.h3
-                variants={contentVariants}
+            <div className="flex-1">
+              <motion.h3 
+                initial={{ opacity: 0, y: 16, filter: 'blur(1px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.1,
+                  ease: [0.16, 1, 0.3, 1]
+                }}
                 className="text-3xl font-bold text-white leading-tight mb-4"
               >
                 {product.title}
               </motion.h3>
 
-              <motion.p
-                variants={contentVariants}
+              <motion.p 
+                initial={{ opacity: 0, y: 12, filter: 'blur(0.5px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.2,
+                  ease: [0.16, 1, 0.3, 1]
+                }}
                 className="text-white/90 text-lg leading-relaxed mb-4 text-left"
               >
                 {product.description}
               </motion.p>
-
-              <motion.p
-                variants={contentVariants}
+              
+              <motion.p 
+                initial={{ opacity: 0, y: 8, filter: 'blur(0.5px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{
+                  duration: 0.4,
+                  delay: 0.3,
+                  ease: [0.16, 1, 0.3, 1]
+                }}
                 className="text-white/80 text-sm leading-relaxed mb-6 text-left"
               >
                 {product.detailedDescription}
               </motion.p>
-            </motion.div>
+            </div>
 
             {/* Bottom section with CTA and Logo at bottom right */}
-            <motion.div
-              className="flex justify-between items-end"
-              variants={contentVariants}
-            >
+            <div className="flex justify-between items-end">
               <motion.button
-                variants={contentVariants}
-                whileHover={shouldReduceMotion ? {} : {
-                  scale: 1.03,
-                  y: -2,
-                  boxShadow: "0 8px 32px rgba(6, 182, 212, 0.3)",
-                  transition: { duration: TIMING.quick, ease: EASING.gentle }
+                initial={{ opacity: 0, y: 8, filter: 'blur(0.5px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{
+                  duration: 0.3,
+                  delay: 0.4,
+                  ease: [0.16, 1, 0.3, 1]
                 }}
-                whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-                className="group inline-flex items-center bg-gradient-to-r from-cyan-500/90 to-cyan-400/90 backdrop-blur-sm hover:from-cyan-400/95 hover:to-cyan-300/95 px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 ease-out shadow-lg hover:shadow-cyan-500/25"
+                whileHover={{ 
+                  scale: isMobile ? 1 : 1.05,
+                  y: -2,
+                  transition: { duration: 0.2, ease: "easeOut" }
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center bg-gradient-to-r from-cyan-500/90 to-cyan-400/90 backdrop-blur-sm hover:bg-blue-500 px-5 py-2.5 rounded-xl font-semibold transition-all duration-500 ease-out"
               >
                 <span className="mr-2 text-sm">Download Brochure</span>
-                <motion.div
-                  animate={shouldReduceMotion ? {} : { x: [0, 3, 0] }}
-                  transition={{
-                    duration: 2,
-                    ease: "easeInOut",
-                    repeat: Infinity,
-                    repeatDelay: 3
-                  }}
-                >
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
-                </motion.div>
+                <ArrowRight className="w-4 h-4" />
               </motion.button>
 
               {/* Logo at bottom right for mobile */}
-              <motion.div
-                variants={contentVariants}
-                className="w-12 h-12 rounded-2xl p-2 flex items-center justify-center"
-                whileHover={shouldReduceMotion ? {} : {
-                  scale: 1.05,
-                  rotate: 5,
-                  transition: { duration: TIMING.quick, ease: EASING.gentle }
-                }}
+              <motion.div 
+                className="w-12 h-12 rounded-2xl p-2 flex items-center justify-center "
+                whileHover={{ scale: isMobile ? 1 : 1.05 }}
               >
                 <Image
                   src={product.logo}
@@ -247,31 +182,35 @@ const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
     )
   }
 
-  // Enhanced Desktop Active Card
+  // Desktop version remains the same as before
   if (isActive) {
     return (
       <motion.div
         onHoverStart={() => onHover(product.id)}
         className="relative rounded-3xl overflow-hidden cursor-pointer group h-[550px] md:h-[550px]"
-        variants={cardVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px", amount: 0.1 }}
-        whileHover={shouldReduceMotion ? {} : {
-          scale: 1.008,
-          y: -3,
-          boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
-          transition: { duration: TIMING.normal, ease: EASING.gentle }
+        initial={{ opacity: 0, y: 30, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, margin: "-30px" }}
+        whileHover={{
+          scale: 1.005,
+          y: -1,
+          transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }
+        }}
+        transition={{ 
+          duration: 0.5,
+          delay: index * 0.04,
+          ease: [0.25, 0.46, 0.45, 0.94]
         }}
         layout
         layoutTransition={{
-          duration: shouldReduceMotion ? 0 : TIMING.layout,
-          ease: EASING.smooth
+          duration: 0.3,
+          ease: [0.25, 0.46, 0.45, 0.94]
         }}
-        style={{
-          willChange: shouldReduceMotion ? 'auto' : 'transform, opacity, flex',
+        style={{ 
+          willChange: 'transform, opacity, flex',
           flex: isActive ? '2 1 0%' : '1 1 0%',
-          transition: shouldReduceMotion ? 'none' : `flex ${TIMING.layout}s cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+          transition: "flex 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
         }}
       >
         {/* Enhanced Background with Texture */}
@@ -294,18 +233,21 @@ const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
         {/* Content Container */}
         <div className="relative h-full flex flex-col md:flex-row">
           {/* Left Content Area */}
-          <motion.div
-            className="relative z-10 p-8 md:p-12 flex-1 flex flex-col justify-center text-white max-w-md text-left"
-            variants={contentVariants}
-          >
+          <div className="relative z-10 p-8 md:p-12 flex-1 flex flex-col justify-center text-white max-w-md text-left">
             {/* Logo Icon */}
-            <motion.div
+            <motion.div 
               className="w-16 h-16 rounded-2xl p-2 mb-6 flex items-center justify-center"
-              variants={contentVariants}
-              whileHover={shouldReduceMotion ? {} : {
+              initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{
+                duration: 0.3,
+                delay: 0.02,
+                ease: "easeOut"
+              }}
+              whileHover={{
                 scale: 1.1,
-                rotate: 8,
-                transition: { duration: TIMING.quick, ease: EASING.bounce }
+                rotate: 5,
+                transition: { duration: 0.15, ease: [0.22, 1, 0.36, 1] }
               }}
             >
               <Image
@@ -318,66 +260,77 @@ const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
             </motion.div>
 
             {/* Title */}
-            <motion.h3
-              variants={contentVariants}
+            <motion.h3 
+              initial={{ opacity: 0, y: 20, filter: 'blur(1px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{
+                duration: 0.5,
+                delay: 0.15,
+                ease: [0.16, 1, 0.3, 1]
+              }}
               className="text-4xl md:text-4xl font-bold leading-tight mb-6"
             >
               {product.title}
             </motion.h3>
 
             {/* Description */}
-            <motion.p
-              variants={contentVariants}
+            <motion.p 
+              initial={{ opacity: 0, y: 16, filter: 'blur(0.5px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{
+                duration: 0.5,
+                delay: 0.25,
+                ease: [0.16, 1, 0.3, 1]
+              }}
               className="text-white/90 text-lg leading-relaxed mb-4 text-left"
             >
               {product.description}
             </motion.p>
-
-            <motion.p
-              variants={contentVariants}
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 12, filter: 'blur(0.5px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{
+                duration: 0.5,
+                delay: 0.35,
+                ease: [0.16, 1, 0.3, 1]
+              }}
               className="text-white/80 text-sm leading-relaxed mb-8 text-left"
             >
               {product.detailedDescription}
             </motion.p>
 
-            {/* Enhanced CTA Button */}
+            {/* CTA Button */}
             <motion.button
-              variants={contentVariants}
-              whileHover={shouldReduceMotion ? {} : {
-                scale: 1.05,
-                y: -3,
-                boxShadow: "0 12px 40px rgba(6, 182, 212, 0.4)",
-                transition: { duration: TIMING.quick, ease: EASING.gentle }
+              initial={{ opacity: 0, y: 12, filter: 'blur(0.5px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              transition={{
+                duration: 0.4,
+                delay: 0.45,
+                ease: [0.16, 1, 0.3, 1]
               }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-              className={`group inline-flex items-center bg-gradient-to-r from-cyan-500/90 to-cyan-400/90 backdrop-blur-sm hover:from-cyan-400/95 hover:to-cyan-300/95 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ease-out self-start shadow-lg hover:shadow-cyan-500/30 ${product.id==="47payday"?"-mt-6":""} ${product.id==="crm-alerts"?"mt-5":""}`}
+              whileHover={{
+                scale: 1.05,
+                y: -2,
+                transition: { duration: 0.15, ease: "easeOut" }
+              }}
+              whileTap={{ scale: 0.95 }}
+              className={`inline-flex items-center bg-gradient-to-r from-cyan-500/90 to-cyan-400/90 backdrop-blur-sm hover:bg-blue-500 px-6 py-3 rounded-xl font-semibold transition-all duration-500 ease-out self-start ${product.id==="47payday"?"-mt-6":""} ${product.id==="crm-alerts"?"mt-5":""}`}
             >
               <span className="mr-2">Download Brochure</span>
-              <motion.div
-                animate={shouldReduceMotion ? {} : { x: [0, 4, 0] }}
-                transition={{
-                  duration: 2.5,
-                  ease: "easeInOut",
-                  repeat: Infinity,
-                  repeatDelay: 4
-                }}
-              >
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-              </motion.div>
+              <ArrowRight className="w-5 h-5" />
             </motion.button>
-          </motion.div>
+          </div>
 
           {/* Right Image Area - Desktop Only */}
-          <div className="hidden md:flex relative flex-1 items-center p-4 justify-center overflow-hidden">
-            <motion.div
-              variants={contentVariants}
-              className="relative w-full h-full rounded-2xl overflow-hidden"
-              whileHover={shouldReduceMotion ? {} : {
-                scale: 1.02,
-                rotate: 0.5,
-                transition: { duration: TIMING.smooth, ease: EASING.gentle }
-              }}
-            >
+{/* Right Image Area - Desktop Only */}
+<div className="hidden md:flex relative flex-1 items-center p-4 justify-center">
+  <motion.div 
+    initial={{ opacity: 0, scale: 0.98 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+    className="relative w-full h-full rounded-2xl overflow-hidden"
+  >
     <Image
       src={product.image}
       alt={product.title}
@@ -393,30 +346,33 @@ const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
     )
   }
 
-  // Enhanced Inactive Card for Desktop
+  // Inactive Card for Desktop
   return (
     <motion.div
       onHoverStart={() => onHover(product.id)}
       className="relative rounded-3xl overflow-hidden cursor-pointer group h-[550px] md:h-[550px]"
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px", amount: 0.1 }}
-      whileHover={shouldReduceMotion ? {} : {
-        scale: 1.012,
-        y: -4,
-        boxShadow: "0 16px 32px rgba(0,0,0,0.12)",
-        transition: { duration: TIMING.normal, ease: EASING.gentle }
+      initial={{ opacity: 0, y: 35, scale: 0.95, rotateY: 5 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, rotateY: 0 }}
+      viewport={{ once: true, margin: "-20px" }}
+      whileHover={{
+        scale: 1.008,
+        y: -2,
+        transition: { duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }
+      }}
+      transition={{ 
+        duration: 0.5,
+        delay: index * 0.04,
+        ease: [0.25, 0.46, 0.45, 0.94]
       }}
       layout
       layoutTransition={{
-        duration: shouldReduceMotion ? 0 : TIMING.layout,
-        ease: EASING.smooth
+        duration: 0.3,
+        ease: [0.25, 0.46, 0.45, 0.94]
       }}
-      style={{
-        willChange: shouldReduceMotion ? 'auto' : 'transform, opacity, flex',
+      style={{ 
+         willChange: 'transform, opacity, flex' ,
         flex: '0.8 1 0%',
-        transition: shouldReduceMotion ? 'none' : `flex ${TIMING.smooth}s cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+        transition: "flex 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
       }}
     >
       {/* Enhanced Background with Texture */}
@@ -442,19 +398,11 @@ const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
       />
       
       {/* Content */}
-      <motion.div
-        className="relative z-10 p-8 h-full flex flex-col text-white text-left"
-        variants={contentVariants}
-      >
+      <div className="relative z-10 p-8 h-full flex flex-col text-white text-left">
         {/* Logo Icon */}
-        <motion.div
+        <motion.div 
           className="w-16 h-16 rounded-2xl p-2 mb-6 flex items-center justify-center"
-          variants={contentVariants}
-          whileHover={shouldReduceMotion ? {} : {
-            scale: 1.08,
-            rotate: 3,
-            transition: { duration: TIMING.quick, ease: EASING.gentle }
-          }}
+          whileHover={{ scale: 1.05 }}
         >
           <Image
             src={product.logo}
@@ -466,8 +414,14 @@ const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
         </motion.div>
 
         {/* Title */}
-        <motion.h3
-          variants={contentVariants}
+        <motion.h3 
+          initial={{ opacity: 0, y: 12, filter: 'blur(0.5px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{
+            duration: 0.4,
+            delay: 0.1,
+            ease: [0.16, 1, 0.3, 1]
+          }}
           className="text-3xl font-bold leading-tight mb-4"
         >
           {product.title}
@@ -477,40 +431,41 @@ const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
         <div className="flex-1" />
 
         {/* Bottom Content */}
-        <motion.div className="space-y-6" variants={contentVariants}>
-          <motion.p
-            variants={contentVariants}
+        <div className="space-y-6">
+          <motion.p 
+            initial={{ opacity: 0, y: 8, filter: 'blur(0.5px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{
+              duration: 0.4,
+              delay: 0.2,
+              ease: [0.16, 1, 0.3, 1]
+            }}
             className="text-white/80 text-lg leading-relaxed text-left"
           >
             {product.description}
           </motion.p>
-
+          
           <motion.button
-            variants={contentVariants}
-            whileHover={shouldReduceMotion ? {} : {
-              scale: 1.03,
-              y: -2,
-              boxShadow: "0 8px 24px rgba(6, 182, 212, 0.25)",
-              transition: { duration: TIMING.quick, ease: EASING.gentle }
+            initial={{ opacity: 0, y: 6, filter: 'blur(0.5px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{
+              duration: 0.3,
+              delay: 0.3,
+              ease: [0.16, 1, 0.3, 1]
             }}
-            whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
-            className="group inline-flex items-center bg-gradient-to-r from-cyan-500/90 to-cyan-400/90 backdrop-blur-sm hover:from-cyan-400/95 hover:to-cyan-300/95 px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 ease-out self-start text-sm shadow-md hover:shadow-cyan-500/20"
+            whileHover={{
+              scale: 1.03,
+              y: -1,
+              transition: { duration: 0.15, ease: "easeOut" }
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center bg-gradient-to-r from-cyan-500/90 to-cyan-400/90 backdrop-blur-sm hover:bg-blue-500 px-5 py-2.5 rounded-xl font-semibold transition-all duration-400 ease-out self-start text-sm"
           >
             <span className="mr-2">Download Brochure</span>
-            <motion.div
-              animate={shouldReduceMotion ? {} : { x: [0, 2, 0] }}
-              transition={{
-                duration: 2,
-                ease: "easeInOut",
-                repeat: Infinity,
-                repeatDelay: 5
-              }}
-            >
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
-            </motion.div>
+            <ArrowRight className="w-4 h-4" />
           </motion.button>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
 
       {/* Hover Overlay */}
       <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out" />
@@ -521,19 +476,18 @@ const ProductCard = ({ product, isActive, onHover, index, isMobile }) => {
 export default function ProductShowcase() {
   const [activeProduct, setActiveProduct] = useState(products[0].id)
   const [isMobile, setIsMobile] = useState(false)
-  const shouldReduceMotion = useReducedMotion()
 
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768)
     }
-
+    
     // Initial check
     checkMobile()
-
+    
     // Add event listener for window resize
     window.addEventListener('resize', checkMobile)
-
+    
     // Clean up
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
@@ -554,21 +508,19 @@ export default function ProductShowcase() {
           badgeIcon={Package}
         />
 
-        {/* Enhanced Products Layout */}
-        <motion.div
+        {/* Products Layout */}
+        <motion.div 
           className={`gap-6 items-stretch ${isMobile ? 'flex flex-col space-y-6' : 'flex flex-col md:flex-row'}`}
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 30 }}
-          whileInView={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px", amount: 0.1 }}
-          transition={{
-            duration: shouldReduceMotion ? 0 : TIMING.smooth,
-            delay: shouldReduceMotion ? 0 : 0.1,
-            ease: EASING.smooth,
-            staggerChildren: shouldReduceMotion ? 0 : STAGGER.content,
-            delayChildren: shouldReduceMotion ? 0 : STAGGER.micro
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ 
+            duration: 0.6,
+            delay: 0.15,
+            ease: [0.25, 0.46, 0.45, 0.94],
+            staggerChildren: 0.04,
+            delayChildren: 0.08
           }}
-          layout={!shouldReduceMotion}
-          layoutDependency={activeProduct}
+          layout
         >
           {products.map((product, index) => (
             <ProductCard 
