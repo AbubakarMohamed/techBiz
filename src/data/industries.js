@@ -99,4 +99,4 @@ export const industries = [
       { value: "Sustainable", label: "Resource management" },
     ],
   },
-]
+];

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
 // Removed MUI components to use Tailwind spacing
-import { ACCENT } from '@/styles/theme';
+import { ACCENT } from "@/styles/theme";
 
 const logos = [
   "/logos/imgi_21_KFM.webp",
@@ -22,7 +22,11 @@ const logos = [
 /** Make a readable alt from filename */
 function makeAlt(src) {
   try {
-    const name = src.split("/").pop()?.replace(/\.(webp|png|jpg|jpeg|svg)$/i, "") ?? "logo";
+    const name =
+      src
+        .split("/")
+        .pop()
+        ?.replace(/\.(webp|png|jpg|jpeg|svg)$/i, "") ?? "logo";
     return name.replace(/[_-]+/g, " ");
   } catch {
     return "client logo";
@@ -97,7 +101,7 @@ export default function LogoMarquee({
                   fill
                   className="object-contain opacity-85 transition-transform duration-300 ease-out hover:scale-105"
                   sizes="(max-width: 640px) 56px, (max-width: 1024px) 72px, 96px"
-                  loading={idx < logos.length ? 'eager' : 'lazy'}
+                  loading={idx < logos.length ? "eager" : "lazy"}
                   priority={idx < logos.length}
                 />
               </div>

@@ -1,11 +1,4 @@
-import {
-  Users,
-  Lightbulb,
-  Rocket,
-  Heart,
-  Sparkles,
-
-} from "lucide-react"
+import { Users, Lightbulb, Rocket, Heart, Sparkles } from "lucide-react";
 export const journeyMilestones = [
   {
     year: "2005",
@@ -52,4 +45,4 @@ export const journeyMilestones = [
     image: "/journey/j5.png",
     metric: "100+ partners",
   },
-]
+];

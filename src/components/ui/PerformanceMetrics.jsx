@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
 /**
  * Performance Metrics Component
- * 
+ *
  * Tracks and displays loading performance improvements from skeleton loaders
  */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 export const PerformanceMetrics = ({ componentName }) => {
   const [metrics, setMetrics] = useState({
     loadTime: 0,
     renderTime: 0,
-    firstContentfulPaint: 0
+    firstContentfulPaint: 0,
   });
 
   useEffect(() => {
@@ -22,23 +22,23 @@ export const PerformanceMetrics = ({ componentName }) => {
       const entries = list.getEntries();
       entries.forEach((entry) => {
         if (entry.name === componentName) {
-          setMetrics(prev => ({
+          setMetrics((prev) => ({
             ...prev,
-            loadTime: entry.duration
+            loadTime: entry.duration,
           }));
         }
       });
     });
 
-    observer.observe({ entryTypes: ['measure'] });
+    observer.observe({ entryTypes: ["measure"] });
 
     // Measure render time
     const endTime = performance.now();
     const renderTime = endTime - startTime;
 
-    setMetrics(prev => ({
+    setMetrics((prev) => ({
       ...prev,
-      renderTime
+      renderTime,
     }));
 
     // Mark component as loaded
@@ -48,7 +48,7 @@ export const PerformanceMetrics = ({ componentName }) => {
   }, [componentName]);
 
   // Don't render in production
-  if (process.env.NODE_ENV === 'production') return null;
+  if (process.env.NODE_ENV === "production") return null;
 
   return (
     <div className="fixed bottom-5 right-5 bg-black/80 text-white p-4 rounded-lg text-xs z-[9999] min-w-[200px] backdrop-blur-lg border border-white/10">
@@ -60,9 +60,7 @@ export const PerformanceMetrics = ({ componentName }) => {
         {metrics.loadTime > 0 && (
           <div>Load Time: {metrics.loadTime.toFixed(2)}ms</div>
         )}
-        <div className="text-green-500 mt-1">
-          ✓ Skeleton Loading Active
-        </div>
+        <div className="text-green-500 mt-1">✓ Skeleton Loading Active</div>
       </div>
     </div>
   );

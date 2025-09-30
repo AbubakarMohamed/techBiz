@@ -5,15 +5,15 @@ import { Inter } from "next/font/google";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
 import { TrendingUp } from "lucide-react";
-import Section from '@/components/ui/Section';
-import SectionHeader from '@/components/ui/SectionHeader';
+import Section from "@/components/ui/Section";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
 
-import { ACCENT } from '@/styles/theme';
+import { ACCENT } from "@/styles/theme";
 
 const containerVariants = {
   hidden: {},
@@ -48,7 +48,7 @@ export default function SneakPeekSection() {
       number: "500+",
       title: "Projects Delivered",
       description:
-        "Custom solutions deployed with precision, accountability, and measurable impact.",
+        "Custom solutions deployed with precision, accountability and measurable impact.",
     },
     {
       number: "30+",
@@ -59,7 +59,9 @@ export default function SneakPeekSection() {
   ];
 
   return (
-    <Section background="white" padding="default"
+    <Section
+      background="white"
+      padding="default"
       className="relative overflow-hidden"
     >
       {/* Responsive map background covering entire section */}
@@ -68,8 +70,6 @@ export default function SneakPeekSection() {
         aria-hidden="true"
       />
 
-
-
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           //Sneak Peek"
@@ -77,7 +77,6 @@ export default function SneakPeekSection() {
           subtitle=" Proven results. Trusted partnerships. Two decades of digital
 excellence."
           badgeIcon={TrendingUp}
-  
         />
 
         <motion.div
@@ -98,67 +97,44 @@ excellence."
                 tabIndex={0}
                 role="button"
                 className={`
-                  text-center p-4 md:p-6 rounded-3xl outline-none cursor-pointer
-                  transition-all duration-[220ms] cubic-bezier-[0.2,0.9,0.3,1]
-                  ${isHovered ? 'transform -translate-y-1' : ''}
-                  ${isHovered ? 'shadow-[0_8px_28px_rgba(15,76,129,0.06)]' : 'shadow-[0_2px_10px_rgba(15,23,36,0.02)]'}
-                  ${isHovered ? 'bg-white/98' : 'bg-transparent'}
-                  border border-transparent
-                  focus:shadow-[0_10px_30px_rgba(15,76,129,0.08)]
-                `}
+    p-6 md:p-8 w-72 rounded-3xl
+    transition-all duration-[220ms] cubic-bezier-[0.2,0.9,0.3,1]
+    ${isHovered ? "transform -translate-y-1" : ""}
+    ${isHovered ? "shadow-[0_8px_28px_rgba(15,76,129,0.06)]" : "shadow-[0_2px_10px_rgba(15,23,36,0.02)]"}
+    ${isHovered ? "bg-white/98" : "bg-transparent"}
+    border border-transparent
+    focus:shadow-[0_10px_30px_rgba(15,76,129,0.08)]
+  `}
                 style={{
-                  borderColor: isHovered ? ACCENT : 'transparent',
-                }}
-                onFocus={(e) => {
-                  e.target.style.borderColor = ACCENT;
-                }}
-                onBlur={(e) => {
-                  if (!isHovered) {
-                    e.target.style.borderColor = 'transparent';
-                  }
+                  borderColor: isHovered ? ACCENT : "transparent",
                 }}
               >
-                <h3
-                  className="font-extrabold text-3xl md:text-4xl mb-2"
-                  style={{
-                    fontFamily: inter.style.fontFamily,
-                    color: ACCENT
-                  }}
-                >
-                  {
-                    // parse numeric portion and suffix (e.g. "70+")
-                    (() => {
-                      const numMatch = String(stat.number).match(/[\d,.]+/);
-                      const suffix = String(stat.number).replace(/[\d,\.\s]/g, "");
-                      const value = numMatch ? Number(numMatch[0].replace(/,/g, "")) : null;
-                      if (value === null || Number.isNaN(value)) return stat.number;
-                      return (
-                        <CountUp
-                          end={value}
-                          duration={1.4}
-                          separator=","
-                          suffix={suffix}
-                          enableScrollSpy
-                          scrollSpyOnce
-                        />
-                      );
-                    })()
-                  }
-                </h3>
-                <h6
-                  className="font-bold text-gray-900 mb-2 text-xl"
-                  style={{
-                    fontFamily: inter.style.fontFamily,
-                    color: "#0f1724"
-                  }}
-                >
-                  {stat.title}
-                </h6>
+                <div className="text-left">
+                  <h3
+                    className="font-extrabold text-3xl md:text-4xl mb-2"
+                    style={{
+                      fontFamily: inter.style.fontFamily,
+                      color: ACCENT,
+                    }}
+                  >
+                    {/* CountUp number logic */}
+                  </h3>
+                  <h6
+                    className="font-bold text-gray-900 mb-2 text-xl"
+                    style={{
+                      fontFamily: inter.style.fontFamily,
+                      color: "#0f1724",
+                    }}
+                  >
+                    {stat.title}
+                  </h6>
+                </div>
+
                 <p
-                  className="text-sm text-slate-600 leading-relaxed text-center px-1 min-h-[3rem] flex items-center justify-center"
+                  className="text-sm text-slate-600 leading-relaxed text-left px-1 min-h-[3rem]"
                   style={{
                     fontFamily: inter.style.fontFamily,
-                    lineHeight: '1.6'
+                    lineHeight: "1.6",
                   }}
                 >
                   {stat.description}

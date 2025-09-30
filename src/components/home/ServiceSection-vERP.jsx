@@ -1,17 +1,27 @@
-"use client"
+"use client";
 
-import { useState , useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Code, Smartphone, GitMerge, CreditCard, Bot, Phone } from "lucide-react"
-import Image from 'next/image'
-import { Inter } from "next/font/google"
-import { services } from '@/data/services'
-import { ACCENT } from '@/styles/theme';
-import Section from '@/components/ui/Section'
-import SectionHeader from '@/components/ui/SectionHeader'
-import CarouselNavigation from '@/components/ui/CarouselNavigation'
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Code,
+  Smartphone,
+  GitMerge,
+  CreditCard,
+  Bot,
+  Phone,
+} from "lucide-react";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import { services } from "@/data/services";
+import { ACCENT } from "@/styles/theme";
+import Section from "@/components/ui/Section";
+import SectionHeader from "@/components/ui/SectionHeader";
+import CarouselNavigation from "@/components/ui/CarouselNavigation";
 
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600", "700"] })
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
 
 const variants = {
   enter: (direction) => ({
@@ -23,55 +33,58 @@ const variants = {
     x: 0,
     opacity: 1,
     scale: 1,
-    transition: { 
+    transition: {
       duration: 0.5,
       ease: [0.22, 1, 0.36, 1],
-      scale: { duration: 0.4 }
+      scale: { duration: 0.4 },
     },
   },
   exit: (direction) => ({
     x: direction > 0 ? -60 : 60,
     opacity: 0,
     scale: 0.98,
-    transition: { 
+    transition: {
       duration: 0.4,
       ease: [0.22, 1, 0.36, 1],
-      opacity: { duration: 0.3 }
+      opacity: { duration: 0.3 },
     },
   }),
-}
+};
 
 export default function ServicesSection() {
-  const [[page, direction], setPage] = useState([0, 0])
-  const [isPaused, setIsPaused] = useState(false)
+  const [[page, direction], setPage] = useState([0, 0]);
+  const [isPaused, setIsPaused] = useState(false);
 
   const paginate = (newDirection) => {
-    setIsPaused(true)
-    setPage([(page + newDirection + services.length) % services.length, newDirection])
+    setIsPaused(true);
+    setPage([
+      (page + newDirection + services.length) % services.length,
+      newDirection,
+    ]);
     // Resume auto-play after 6 seconds of user interaction
-    setTimeout(() => setIsPaused(false), 6000)
-  }
+    setTimeout(() => setIsPaused(false), 6000);
+  };
 
   const goToService = (index) => {
-    setIsPaused(true)
-    const newDirection = index > page ? 1 : -1
-    setPage([index, newDirection])
+    setIsPaused(true);
+    const newDirection = index > page ? 1 : -1;
+    setPage([index, newDirection]);
     // Resume auto-play after 6 seconds of user interaction
-    setTimeout(() => setIsPaused(false), 6000)
-  }
+    setTimeout(() => setIsPaused(false), 6000);
+  };
 
-  const activeService = services[page]
+  const activeService = services[page];
 
   // Map services to appropriate icons
   const getServiceIcon = (index) => {
-    const icons = [Code, Smartphone, GitMerge, CreditCard, Bot, Phone]
-    const IconComponent = icons[index % icons.length]
-    return IconComponent
-  }
+    const icons = [Code, Smartphone, GitMerge, CreditCard, Bot, Phone];
+    const IconComponent = icons[index % icons.length];
+    return IconComponent;
+  };
 
   // Auto-play logic
   useEffect(() => {
-    if (isPaused) return
+    if (isPaused) return;
 
     const interval = setInterval(() => {
       setPage(([currentPage]) => [(currentPage + 1) % services.length, 1]);
@@ -81,7 +94,6 @@ export default function ServicesSection() {
   }, [isPaused]); // Re-run when pause state changes
 
   return (
-    
     <Section background="white" padding="small" id="services">
       {/* Diagonal SVG accent */}
       <div
@@ -170,7 +182,7 @@ export default function ServicesSection() {
                 {/* Elegant background accent */}
                 <div className="absolute -inset-4 bg-gradient-to-br from-blue-50/30 via-white/20 to-gray-50/40 rounded-2xl blur-sm -z-10 opacity-60" />
                 {/* <div className="absolute top-0 left-0 w-1 h-16 bg-gradient-to-b from-blue-500 to-blue-600 rounded-full opacity-80" /> */}
-                
+
                 {/* Service icon with elegant styling */}
                 {/* <motion.div 
                   className="flex items-center mb-4 sm:mb-6"
@@ -190,30 +202,44 @@ export default function ServicesSection() {
                   
                 </motion.div> */}
 
-                <motion.h3 
+                <motion.h3
                   className={`${inter.className} text-left text-xl sm:text-2xl lg:text-3xl text-gray-900 mb-3 sm:mb-4 font-bold leading-tight bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text`}
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    delay: 0.2,
+                    duration: 0.6,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
                   {activeService.title}
                 </motion.h3>
-                
+
                 <motion.div
                   className={`${inter.className} text-left text-blue-700 text-sm sm:text-lg mb-3 sm:mb-4 font-semibold relative`}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    delay: 0.3,
+                    duration: 0.6,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
-                  <span className="relative z-10">{activeService.subtitle}</span>
+                  <span className="relative z-10">
+                    {activeService.subtitle}
+                  </span>
                   <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 via-blue-400 to-transparent opacity-30" />
                 </motion.div>
-                
-                <motion.div 
+
+                <motion.div
                   className="relative mb-6 sm:mb-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    delay: 0.4,
+                    duration: 0.6,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
                   <p className="text-justify text-gray-600 text-sm sm:text-base leading-relaxed font-normal tracking-normal relative pl-4">
                     {/* <span className="absolute left-0 top-2 w-2 h-2 bg-blue-400 rounded-full opacity-60" /> */}
@@ -222,24 +248,31 @@ export default function ServicesSection() {
                 </motion.div>
 
                 {/* Enhanced stats section */}
-                <motion.div 
+                <motion.div
                   className="space-y-3 sm:space-y-4"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{
+                    delay: 0.5,
+                    duration: 0.6,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
                   {activeService.stats.map((stat, idx) => (
-                    <motion.div 
-                      key={idx} 
+                    <motion.div
+                      key={idx}
                       className="group relative bg-gradient-to-r from-white via-blue-50/40 to-white backdrop-blur-sm rounded-xl p-4 sm:p-5 border border-blue-100/80 shadow-sm hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-500 hover:border-blue-200/80 overflow-hidden"
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.6 + idx * 0.1, duration: 0.5 }}
-                      whileHover={{ scale: 1.02, transition: { duration: 0.2 } }}
+                      whileHover={{
+                        scale: 1.02,
+                        transition: { duration: 0.2 },
+                      }}
                     >
                       {/* Animated background accent */}
                       <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
+
                       <div className="relative flex items-center justify-between w-full">
                         <div className="flex items-center space-x-4">
                           <div className="relative">
@@ -254,7 +287,7 @@ export default function ServicesSection() {
                           {stat.label}
                         </span>
                       </div>
-                      
+
                       {/* Subtle geometric accent */}
                       <div className="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-300" />
                     </motion.div>
@@ -301,16 +334,16 @@ export default function ServicesSection() {
         />
 
         {/* Touch swipe area */}
-        <div 
-          className="absolute inset-0 z-10 md:hidden" 
+        <div
+          className="absolute inset-0 z-10 md:hidden"
           onTouchStart={(e) => {
             const touch = e.touches[0];
             const startX = touch.clientX;
-            
+
             const handleTouchMove = (e) => {
               const touch = e.touches[0];
               const diff = touch.clientX - startX;
-              
+
               if (Math.abs(diff) > 50) {
                 setIsPaused(true);
                 if (diff > 0) {
@@ -323,17 +356,17 @@ export default function ServicesSection() {
                 cleanup();
               }
             };
-            
+
             const cleanup = () => {
-              document.removeEventListener('touchmove', handleTouchMove);
-              document.removeEventListener('touchend', cleanup);
+              document.removeEventListener("touchmove", handleTouchMove);
+              document.removeEventListener("touchend", cleanup);
             };
-            
-            document.addEventListener('touchmove', handleTouchMove);
-            document.addEventListener('touchend', cleanup);
+
+            document.addEventListener("touchmove", handleTouchMove);
+            document.addEventListener("touchend", cleanup);
           }}
         />
       </div>
     </Section>
-  )
+  );
 }

@@ -1,10 +1,8 @@
-'use client';
+"use client";
 
 import Footer from "@/components/Footer";
 import ContactMethod from "@/components/contact/contactMethod";
 import OfficeMap from "@/components/contact/OfficeMap";
-
-
 
 /* ---------------------- Page ---------------------- */
 
@@ -19,7 +17,7 @@ export default function ContactPage() {
         Skip to consultation form
       </a>
 
-{/* <HeroSection {...heroConfig}/> */}
+      {/* <HeroSection {...heroConfig}/> */}
       {/* Main Content Flow with Better Spacing */}
       <div className="relative">
         {/* Contact Methods Section */}

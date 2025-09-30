@@ -3,9 +3,9 @@
 import { Inter } from "next/font/google";
 import { useState, useEffect } from "react";
 import { MessageSquareQuote } from "lucide-react";
-import SectionHeader from '@/components/ui/SectionHeader';
-import Section from '@/components/ui/Section';
-import { ACCENT } from '@/styles/theme';
+import SectionHeader from "@/components/ui/SectionHeader";
+import Section from "@/components/ui/Section";
+import { ACCENT } from "@/styles/theme";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -66,7 +66,7 @@ export default function ClientTestimonialSection() {
           background: `
             radial-gradient(circle at 20% 78%, rgba(15,76,129,0.035), transparent 40%),
             radial-gradient(circle at 84% 22%, rgba(120,119,198,0.03), transparent 40%)
-          `
+          `,
         }}
       />
 
@@ -86,9 +86,9 @@ export default function ClientTestimonialSection() {
             </h5>
             <p
               className="text-sm font-semibold mb-2"
-              style={{ 
+              style={{
                 fontFamily: inter.style.fontFamily,
-                color: ACCENT 
+                color: ACCENT,
               }}
             >
               — {testimonials[index].client}
@@ -101,7 +101,7 @@ export default function ClientTestimonialSection() {
                   key={i}
                   className="w-2.5 h-2.5 rounded-full transition-all duration-300 ease-in-out"
                   style={{
-                    backgroundColor: i === index ? ACCENT : "#cbd5e1"
+                    backgroundColor: i === index ? ACCENT : "#cbd5e1",
                   }}
                 />
               ))}

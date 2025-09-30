@@ -74,4 +74,4 @@ export const products = [
     },
     ctaSecondary: { label: "Explore CRM Alerts", href: "/products/crm-alerts" },
   },
-]
+];

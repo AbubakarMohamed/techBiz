@@ -16,23 +16,23 @@ export default function Navbar() {
   const navItems = [
     { name: "About", href: "/about" },
     { name: "Services", href: "/#services" },
-        { name: "Products", href: "/#products" },
+    { name: "Products", href: "/#products" },
     { name: "Industries", href: "/#industries" },
     {
       name: "Testimonials",
       href: "/#client-testimonials-section",
     },
-    { 
+    {
       name: "Contact",
       href: "/contact",
-    }
+    },
   ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     const handleActiveSection = () => {
-      if (pathname !== '/') {
-        setActiveSection('');
+      if (pathname !== "/") {
+        setActiveSection("");
         return;
       }
 
@@ -44,7 +44,7 @@ export default function Navbar() {
           const el = selector ? document.querySelector(selector) : null;
           return { name: item.name, top: el?.offsetTop || 0 };
         })
-        .filter(section => section.top > 0); // Only track sections that exist
+        .filter((section) => section.top > 0); // Only track sections that exist
 
       if (sections.length === 0) return;
 
@@ -52,8 +52,8 @@ export default function Navbar() {
       const current = sections
         .sort((a, b) => b.top - a.top) // Sort by position, closest to top first
         .find((section) => scrollPos >= section.top);
-        
-      setActiveSection(current ? current.name : '');
+
+      setActiveSection(current ? current.name : "");
     };
 
     const throttledScroll = () => {
@@ -69,7 +69,7 @@ export default function Navbar() {
     };
 
     window.addEventListener("scroll", throttledScroll);
-    
+
     // Initial check
     handleScroll();
     handleActiveSection();
@@ -84,15 +84,15 @@ export default function Navbar() {
       // Parse the href into base path and hash
       const [basePath = "", hash = ""] = href.split("#");
       const targetPath = basePath || "/";
-      
+
       // Case 1: Hash link on current page
       if (href.includes("#") && pathname === targetPath) {
         e.preventDefault();
         const el = document.getElementById(hash);
         if (el) {
-          el.scrollIntoView({ 
-            behavior: "smooth", 
-            block: "start"
+          el.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
           });
           setIsOpen(false);
           // Update URL without reload
@@ -100,7 +100,7 @@ export default function Navbar() {
         }
         return;
       }
-      
+
       // Case 2: Same page, no hash - scroll to top
       if (pathname === href) {
         e.preventDefault();
@@ -108,10 +108,9 @@ export default function Navbar() {
         setIsOpen(false);
         return;
       }
-      
+
       // Case 3: Different page - just close menu and let navigation happen
       setIsOpen(false);
-      
     } catch (err) {
       console.error("Navigation error:", err);
       setIsOpen(false);
@@ -129,9 +128,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 bg-slate-900 border-b border-slate-700 shadow-md"
-    >
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-900 border-b border-slate-700 shadow-md">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -146,19 +143,22 @@ export default function Navbar() {
             }}
             className="flex items-center space-x-2"
           >
-<Image
-  src="/branding/Artboard 2.webp"
-  alt="Techbiz Logo"
-  width={130}
-  height={30}
-  priority
-  className="h-8  sm:h-6 md:h-9 lg:h-8"
-/>
-
+            <Image
+              src="/branding/Artboard 2.webp"
+              alt="Techbiz Logo"
+              width={130}
+              height={30}
+              priority
+              className="h-8  sm:h-6 md:h-9 lg:h-8"
+            />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center justify-end flex-1 ml-4 md:ml-6 font-sans space-x-0.5 md:space-x-1 lg:space-x-2" role="navigation" aria-label="Main navigation">
+          <div
+            className="hidden md:flex items-center justify-end flex-1 ml-4 md:ml-6 font-sans space-x-0.5 md:space-x-1 lg:space-x-2"
+            role="navigation"
+            aria-label="Main navigation"
+          >
             {navItems.map((item) => (
               <Link
                 key={item.name}
@@ -175,7 +175,6 @@ export default function Navbar() {
                 <span className="whitespace-nowrap">{item.name}</span>
               </Link>
             ))}
-
           </div>
 
           {/* Mobile Menu Button */}
@@ -187,17 +186,21 @@ export default function Navbar() {
               aria-controls="mobile-menu"
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
-              {isOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
+              {isOpen ? (
+                <X className="w-6 h-6" aria-hidden="true" />
+              ) : (
+                <Menu className="w-6 h-6" aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {/* Mobile menu: use CSS transition driven by max-height to avoid framer-motion bundle */}
-        <div 
+        <div
           id="mobile-menu"
           className={`md:hidden absolute top-full left-0 right-0 bg-slate-900 border-b border-slate-700 overflow-hidden transition-[max-height,opacity] duration-300 ${
-            isOpen ? 'max-h-[80vh] opacity-100' : 'max-h-0 opacity-0'
+            isOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
           }`}
           role="navigation"
           aria-label="Mobile navigation"
@@ -219,9 +222,6 @@ export default function Navbar() {
                 <span>{item.name}</span>
               </Link>
             ))}
-
-        
-
           </div>
         </div>
       </div>

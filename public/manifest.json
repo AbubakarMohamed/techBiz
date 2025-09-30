@@ -23,7 +23,7 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/logos/techbizlogo.webp", 
+      "src": "/logos/techbizlogo.webp",
       "sizes": "512x512",
       "type": "image/webp",
       "purpose": "any"
@@ -37,7 +37,7 @@
       "form_factor": "wide"
     },
     {
-      "src": "/screenshot-narrow.png", 
+      "src": "/screenshot-narrow.png",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow"

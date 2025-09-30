@@ -1,136 +1,151 @@
-● 🚨 Critical Performance Issues Causing <50% 
-  Lighthouse Score
+● 🚨 Critical Performance Issues Causing <50%
+Lighthouse Score
 
-  Based on my analysis, here are ALL the remaining 
-  performance bottlenecks keeping your website below
-  50%:
+Based on my analysis, here are ALL the remaining
+performance bottlenecks keeping your website below
+50%:
 
-  ---
-  1. 🎥 MASSIVE VIDEO FILES (Critical - 19MB)
+---
 
-  Impact: Largest performance killer
+1. 🎥 MASSIVE VIDEO FILES (Critical - 19MB)
 
-  - HeroSectionVideo.mp4: 11MB
-  - HeroSectionVideoIntro.mp4: 8.3MB
-  - Total: 19.3MB of videos loaded on initial page        
+Impact: Largest performance killer
+
+- HeroSectionVideo.mp4: 11MB
+- HeroSectionVideoIntro.mp4: 8.3MB
+- Total: 19.3MB of videos loaded on initial page  
   visit
 
-  Problems:
-  - Videos load immediately on page load
-  - No compression for mobile devices
-  - No progressive loading or streaming
-  - Blocks page rendering until loaded
-  - Consumes enormous bandwidth on mobile
+Problems:
 
-  ---
-  2. 📦 HEAVY JAVASCRIPT BUNDLE (189KB First Load)        
+- Videos load immediately on page load
+- No compression for mobile devices
+- No progressive loading or streaming
+- Blocks page rendering until loaded
+- Consumes enormous bandwidth on mobile
 
-  Impact: Blocks page interactivity
+---
 
-  Unused Heavy Dependencies Still Loaded:
-  - @mui/material + @emotion packages (30-40KB) -
+2. 📦 HEAVY JAVASCRIPT BUNDLE (189KB First Load)
+
+Impact: Blocks page interactivity
+
+Unused Heavy Dependencies Still Loaded:
+
+- @mui/material + @emotion packages (30-40KB) -
   Still in dependencies despite removal from
   HeroSection
-  - Framer Motion (25-30KB) - Used across 10+
+- Framer Motion (25-30KB) - Used across 10+
   components
-  - Lucide React (15-20KB) - Large icon library
-  - styled-components (10-15KB) - Unused styling
+- Lucide React (15-20KB) - Large icon library
+- styled-components (10-15KB) - Unused styling
   library
-  - React 19 - Bleeding edge, potentially unstable        
+- React 19 - Bleeding edge, potentially unstable
 
-  ---
-  3. 🖼️ UNOPTIMIZED IMAGES (49MB Public Folder)
+---
 
-  Impact: Slow loading, layout shifts
+3. 🖼️ UNOPTIMIZED IMAGES (49MB Public Folder)
 
-  Problems:
-  - 49MB total in public folder
-  - Mixed formats (PNG, JPG, WebP)
-  - No responsive image sizes
-  - No lazy loading priority
-  - Certificate images not optimized
-  - Product showcase images likely oversized
+Impact: Slow loading, layout shifts
 
-  ---
-  4. ⚡ RENDER-BLOCKING RESOURCES
+Problems:
 
-  Impact: Delays First Contentful Paint
+- 49MB total in public folder
+- Mixed formats (PNG, JPG, WebP)
+- No responsive image sizes
+- No lazy loading priority
+- Certificate images not optimized
+- Product showcase images likely oversized
 
-  - 8 Dynamic Imports in BelowFoldClient loading
+---
+
+4. ⚡ RENDER-BLOCKING RESOURCES
+
+Impact: Delays First Contentful Paint
+
+- 8 Dynamic Imports in BelowFoldClient loading
   simultaneously
-  - Heavy Skeleton Components with complex animations     
-  - Framer Motion animations blocking initial render      
-  - MUI imports still present in other components
+- Heavy Skeleton Components with complex animations
+- Framer Motion animations blocking initial render
+- MUI imports still present in other components
 
-  ---
-  5. 🎯 BELOW-FOLD LOADING ISSUES
+---
 
-  Impact: Poor perceived performance
+5. 🎯 BELOW-FOLD LOADING ISSUES
 
-  BelowFoldClient Problems:
-  // 8 heavy components loaded at once
-  ProductShowcase, ServicesSection, FeaturesSection,      
-  IndustriesCarousel, SneakPeek, ContactSection,
-  ClientTestimonialSection, Footer
+Impact: Poor perceived performance
 
-  - All components use Framer Motion (heavy
+BelowFoldClient Problems:
+// 8 heavy components loaded at once
+ProductShowcase, ServicesSection, FeaturesSection,  
+ IndustriesCarousel, SneakPeek, ContactSection,
+ClientTestimonialSection, Footer
+
+- All components use Framer Motion (heavy
   animations)
-  - No progressive loading strategy
-  - Skeleton loaders add overhead instead of helping      
+- No progressive loading strategy
+- Skeleton loaders add overhead instead of helping
 
-  ---
-  6. 📱 MOBILE PERFORMANCE KILLERS
+---
 
-  - 19MB videos served to mobile devices
-  - No mobile-optimized assets
-  - Complex animations on limited CPU/battery
-  - Full desktop bundles sent to mobile
+6. 📱 MOBILE PERFORMANCE KILLERS
 
-  ---
-  7. 🏗️ ARCHITECTURAL ISSUES
+- 19MB videos served to mobile devices
+- No mobile-optimized assets
+- Complex animations on limited CPU/battery
+- Full desktop bundles sent to mobile
 
-  Dependencies Mismatch:
-  - Still importing @emotion and @mui packages
-  - styled-components unused but bundled
-  - Multiple animation libraries (Framer Motion + CSS)    
+---
 
-  Component Structure:
-  - PerformanceMetrics component adds overhead
-  - Complex state management still present in multiple    
-   components
-  - Skeleton components heavier than actual content       
+7. 🏗️ ARCHITECTURAL ISSUES
 
-  ---
-  8. 🔄 UNNECESSARY PROCESSING
+Dependencies Mismatch:
 
-  - useReducedMotion hook called multiple times
-  - Intersection Observers running on multiple
+- Still importing @emotion and @mui packages
+- styled-components unused but bundled
+- Multiple animation libraries (Framer Motion + CSS)
+
+Component Structure:
+
+- PerformanceMetrics component adds overhead
+- Complex state management still present in multiple  
   components
-  - Complex animation calculations on every render        
-  - Redundant re-renders from multiple useEffect hooks    
+- Skeleton components heavier than actual content
 
-  ---
-  📊 Estimated Impact on Lighthouse Score:
+---
 
-  1. Videos (19MB): -25 points (largest impact)
-  2. JS Bundle Size: -10 points
-  3. Unoptimized Images: -8 points
-  4. Render Blocking: -5 points
-  5. Mobile Issues: -7 points
+8. 🔄 UNNECESSARY PROCESSING
 
-  Total Performance Loss: ~55 points
-  Current Score: ~45-50% (would be 100% without these     
-  issues)
+- useReducedMotion hook called multiple times
+- Intersection Observers running on multiple
+  components
+- Complex animation calculations on every render
+- Redundant re-renders from multiple useEffect hooks
 
-  ---
-  🎯 Priority Fix Order for 50%+ Score:
+---
 
-  1. URGENT: Optimize/lazy-load videos
-  2. HIGH: Remove unused dependencies
-  3. HIGH: Optimize images and lazy loading
-  4. MEDIUM: Simplify below-fold loading
-  5. MEDIUM: Reduce animation complexity
+📊 Estimated Impact on Lighthouse Score:
 
-  The 19MB video files are by far your biggest
-  performance killer and should be addressed first for    
-   immediate impact.
+1. Videos (19MB): -25 points (largest impact)
+2. JS Bundle Size: -10 points
+3. Unoptimized Images: -8 points
+4. Render Blocking: -5 points
+5. Mobile Issues: -7 points
+
+Total Performance Loss: ~55 points
+Current Score: ~45-50% (would be 100% without these  
+ issues)
+
+---
+
+🎯 Priority Fix Order for 50%+ Score:
+
+1. URGENT: Optimize/lazy-load videos
+2. HIGH: Remove unused dependencies
+3. HIGH: Optimize images and lazy loading
+4. MEDIUM: Simplify below-fold loading
+5. MEDIUM: Reduce animation complexity
+
+The 19MB video files are by far your biggest
+performance killer and should be addressed first for  
+ immediate impact.

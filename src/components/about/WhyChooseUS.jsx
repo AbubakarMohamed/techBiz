@@ -3,8 +3,8 @@
 import { Inter } from "next/font/google";
 import { motion, useReducedMotion } from "framer-motion";
 import { Clock, Users, Database, Shield, ThumbsUp, Trophy } from "lucide-react";
-import Section from '@/components/ui/Section';
-import SectionHeader from '@/components/ui/SectionHeader';
+import Section from "@/components/ui/Section";
+import SectionHeader from "@/components/ui/SectionHeader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,7 +14,8 @@ const inter = Inter({
 const reasons = [
   {
     title: "A TEAM OF EXPERT ENGINEERS",
-    description: "Our engineers make sure that the product is well designed and developed.",
+    description:
+      "Our engineers make sure that the product is well designed and developed.",
     icon: Users,
   },
   {
@@ -24,17 +25,20 @@ const reasons = [
   },
   {
     title: "PROFESSIONALISM",
-    description: "We provide professional services to all of our clients, whether they are small, medium, or large.",
+    description:
+      "We provide professional services to all of our clients, whether they are small, medium, or large.",
     icon: Users,
   },
   {
     title: "DATA INTEGRITY AND SECURITY",
-    description: "We make certain that your data is safe, accurate, up to date, and complete.",
+    description:
+      "We make certain that your data is safe, accurate, up to date, and complete.",
     icon: Database,
   },
   {
     title: "RELIABILITY",
-    description: "We ensure that your solution is up and running at all times, with minimal downtime.",
+    description:
+      "We ensure that your solution is up and running at all times, with minimal downtime.",
     icon: Shield,
   },
   {
@@ -69,12 +73,11 @@ export default function WhyChooseTechBiz() {
   return (
     <Section background="white" padding="small" id="why-choose-us">
       <SectionHeader
-             //Our Advantage"
-             title="Why Choose Us"
-             subtitle="Partner with industry leaders who transform your vision into powerful, scalable software solutions"
-             badgeIcon={Trophy }
-     
-           />
+        //Our Advantage"
+        title="Why Choose Us"
+        subtitle="Partner with industry leaders who transform your vision into powerful, scalable software solutions"
+        badgeIcon={Trophy}
+      />
 
       <motion.div
         initial="hidden"

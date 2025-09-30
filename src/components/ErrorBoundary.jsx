@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
-import Link from 'next/link';
+import React from "react";
+import { AlertTriangle, RefreshCw, Home } from "lucide-react";
+import Link from "next/link";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -17,14 +17,14 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     // Log error to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.error('Error caught by boundary:', error, errorInfo);
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error caught by boundary:", error, errorInfo);
     }
-    
+
     // You can also log the error to an error reporting service here
     this.setState({
       error,
-      errorInfo
+      errorInfo,
     });
   }
 
@@ -42,15 +42,16 @@ class ErrorBoundary extends React.Component {
                 <AlertTriangle className="h-8 w-8 text-red-600" />
               </div>
             </div>
-            
+
             <h1 className="text-2xl font-bold text-gray-900 mb-2">
               Something went wrong
             </h1>
-            
+
             <p className="text-gray-600 mb-6">
-              We're sorry, but something unexpected happened. Please try refreshing the page or return to the homepage.
+              We're sorry, but something unexpected happened. Please try
+              refreshing the page or return to the homepage.
             </p>
-            
+
             <div className="space-y-3">
               <button
                 onClick={this.handleRetry}
@@ -59,7 +60,7 @@ class ErrorBoundary extends React.Component {
                 <RefreshCw className="h-4 w-4" />
                 Try Again
               </button>
-              
+
               <Link
                 href="/"
                 className="w-full bg-gray-100 hover:bg-gray-200 text-gray-900 font-medium py-3 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2"
@@ -68,8 +69,8 @@ class ErrorBoundary extends React.Component {
                 Go Home
               </Link>
             </div>
-            
-            {process.env.NODE_ENV === 'development' && this.state.error && (
+
+            {process.env.NODE_ENV === "development" && this.state.error && (
               <details className="mt-6 text-left">
                 <summary className="cursor-pointer text-sm text-gray-500 hover:text-gray-700">
                   Debug Information
@@ -81,7 +82,9 @@ class ErrorBoundary extends React.Component {
                   {this.state.errorInfo && (
                     <div>
                       <strong>Stack:</strong>
-                      <pre className="whitespace-pre-wrap">{this.state.errorInfo.componentStack}</pre>
+                      <pre className="whitespace-pre-wrap">
+                        {this.state.errorInfo.componentStack}
+                      </pre>
                     </div>
                   )}
                 </div>
