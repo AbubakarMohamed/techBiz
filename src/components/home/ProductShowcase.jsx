@@ -16,10 +16,10 @@ const products = [
     description:
       "Simplify HR with smart software that handles payroll and employee self-service—all in one platform.",
     image: "/products/payday1.webp",
-    gradient: "from-violet-500 to-purple-600",
-    icon: Package,
+    gradient: "from-slate-900 via-blue-900 to-indigo-900",
     features: ["Payroll automation", "Employee portal", "Compliance tracking"],
     href: "/documents/47_PayDay_Brochure_2025.pdf",
+    logo: "/products/147payday.webp",
   },
   {
     id: "47crm",
@@ -28,9 +28,21 @@ const products = [
     description:
       "Manage your customer relationships with powerful tools designed for modern businesses.",
     image: "/products/crm1.webp",
-    gradient: "from-blue-500 to-cyan-600",
-    icon: Package,
+    gradient: "from-slate-900 via-blue-900 to-indigo-900",
     features: ["Customer pipelines", "Analytics dashboard", "Sales automation"],
+    logo: "/products/crm.webp",
+  },
+  {
+    id: "47pay1day",
+    title: "47PayDay",
+    tagline: "Revolutionize Your HR Management",
+    description:
+      "Simplify HR with smart software that handles payroll and employee self-service—all in one platform.",
+    image: "/products/payday1.webp",
+    gradient: "from-slate-900 via-blue-900 to-indigo-900",
+    features: ["Payroll automation", "Employee portal", "Compliance tracking"],
+    href: "/documents/47_PayDay_Brochure_2025.pdf",
+    logo: "/products/147payday.webp",
   },
   {
     id: "47pro",
@@ -38,33 +50,34 @@ const products = [
     tagline: "Revenue Management Excellence",
     description:
       "A flagship revenue management system designed exclusively for county governments.",
-    image: "/products/47pro1.webp",
+    image: "/products/47pro.webp",
     gradient: "from-slate-900 via-blue-900 to-indigo-900",
-    icon: Package,
     features: ["Revenue collection", "Smart reporting", "Integration-ready"],
+    logo: "/products/47proLogo.webp",
   },
-  {
-    id: "crm-alerts",
-    title: "CRM Alerts",
-    tagline: "Stay Informed, Stay Ahead",
-    description:
-      "Stay ahead with smart notifications and real-time alerts that keep your clients informed—instantly.",
-      icon: Package,
-    gradient: "from-gray-900 via-slate-800 to-zinc-900",
-    image: "/products/notification-alerts-mobile-interface.webp",
-    features: ["Real-time Notifications", "Custom Alert Rules", "Priority Management"],
-  },
-  {
-    id: "analytics",
-    title: "Analytics Pro",
-    tagline: "Data-Driven Decisions",
-    description:
-      "Stop guessing—start making smarter decisions with real-time analytics and powerful data visualization.",
-      icon: Package,
-    gradient: "from-slate-900 via-blue-900 to-indigo-900",
-    image: "/products/analytics-dashboard.webp",
-    features: [ "Custom Dashboards", "Data Visualization", "Predictive Insights"],
-  },
+  // {
+  //   id: "crm-alerts",
+  //   title: "CRM Alerts",
+  //   tagline: "Stay Informed, Stay Ahead",
+  //   description:
+  //     "Stay ahead with smart notifications and real-time alerts that keep your clients informed—instantly.",
+  //   gradient: "from-slate-900 via-blue-900 to-indigo-900",
+  //   image: "/products/4.webp",
+  //   features: ["Real-time Notifications", "Custom Alert Rules", "Priority Management"],
+  //   logo: "/products/4.webp",
+  // },
+  
+  // {
+  //   id: "analytics",
+  //   title: "Analytics Pro",
+  //   tagline: "Data-Driven Decisions",
+  //   description:
+  //     "Stop guessing—start making smarter decisions with real-time analytics and powerful data visualization.",
+  //   gradient: "from-slate-900 via-blue-900 to-indigo-900",
+  //   image: "/products/5.webp",
+  //   features: [ "Custom Dashboards", "Data Visualization", "Predictive Insights"],
+  //   logo: "/products/5.webp",
+  // },
 ]
 
 export default function ProductShowcase() {
@@ -84,13 +97,22 @@ export default function ProductShowcase() {
   return (
     <Section background="white" id="products" padding="small">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          title="Our SaaS Suite Ready to Transform Your Business"
-          subtitle="Proven, scalable solutions already delivering results for governments, enterprises, and organizations."
-          badgeIcon={Package}
-        />
+      <SectionHeader
+  title="Our SaaS Suite Ready to Transform Your Business"
+  subtitle="Proven, scalable solutions already delivering results for governments, enterprises, and organizations."
+  badgeIcon={
+    <Image
+      src={activeProduct.logo}
+      alt={activeProduct.title}
+      width={40}
+      height={40}
+      className="w-10 h-10 "
+    />
+  }
+/>
 
-        <div className="grid lg:grid-cols-[280px_1fr] gap-8 mt-8">
+
+        <div className="grid lg:grid-cols-[280px_1fr] gap-4 mt-4">
           {/* LEFT SIDE NAVIGATION */}
           <div className="flex flex-col justify-between">
             <div className="space-y-3">
@@ -104,7 +126,15 @@ export default function ProductShowcase() {
                       : "border-border bg-card hover:border-muted-foreground/30 hover:shadow-sm"
                   }`}
                 >
-                  <product.icon className="w-5 h-5 flex-shrink-0" />
+                  {/* ✅ Product Logo */}
+      <Image
+        src={product.logo}
+        alt={product.title}
+        width={40}
+        height={40}
+        className="w-10 h-10 "
+      />
+                  
                   <div  className="text-left">
                     <h3 className="font-semibold text-sm">{product.title}</h3>
                     <p
@@ -148,9 +178,7 @@ export default function ProductShowcase() {
           >
             {/* Text Content */}
             <div className="flex-1">
-              <span className="text-xs uppercase bg-white/20 px-3 py-1 rounded-full mb-3 inline-block">
-                Featured
-              </span>
+              
               <h2 className="text-3xl font-bold mb-2">{activeProduct.title}</h2>
               <p className="text-lg mb-4">{activeProduct.tagline}</p>
               <p className="text-sm opacity-90 mb-6">{activeProduct.description}</p>
@@ -192,13 +220,13 @@ export default function ProductShowcase() {
             </div>
 
             <div className="relative flex-1">
-  <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-2xl">
+  <div className="relative aspect-[4/3] rounded-xl overflow-hidden ">
     <img
       src={activeProduct.image || "/placeholder.svg"}
       alt={activeProduct.title}
       className="w-full h-full object-cover"
     />
-    <div className={`absolute inset-0 bg-gradient-to-t ${activeProduct.gradient} opacity-10`} />
+    <div />
   </div>
 </div>
 
