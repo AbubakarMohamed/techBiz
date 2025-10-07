@@ -106,7 +106,7 @@ export default function FeaturesSection() {
               onMouseEnter={() => setHoveredIndex(idx)}
               onMouseLeave={() => setHoveredIndex(null)}
               tabIndex={0}
-              className="group relative rounded-2xl bg-white border border-slate-200 p-6 shadow-sm transition-all duration-500 hover:shadow-xl flex flex-col items-center text-center"
+              className="group relative rounded-2xl bg-white p-6 flex flex-col items-center text-center"
             >
               {/* Icon */}
               <div
