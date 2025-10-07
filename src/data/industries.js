@@ -63,7 +63,7 @@ export const industries = [
     title: "Tourism",
     description:
       "The tourism industry leverages technology to enhance visitor experiences, streamline operations, and reach global markets. From booking systems to digital marketing platforms, we help tourism businesses connect with travelers, manage resources efficiently, and deliver memorable experiences that drive repeat visits.",
-    image: "/industries/tourism.webp",
+    image: "/industries/tourismm.webp",
     stats: [
       { value: "Global", label: "Market reach" },
       { value: "Enhanced", label: "Visitor experience" },
